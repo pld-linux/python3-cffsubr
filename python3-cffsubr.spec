@@ -22,8 +22,8 @@ BuildRequires:	python3-setuptools_scm
 BuildRequires:	python3-fonttools >= 4.10.2
 %if "%{py3_ver}" == "3.6"
 BuildRequires:	python3-importlib_resources
-BuildRequires:	python3-pytest
 %endif
+BuildRequires:	python3-pytest
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -41,6 +41,12 @@ AFDKO.
 %setup -q -n cffsubr-%{version}
 
 %build
+# prebuild tx (like setup does) but with our optflags
+%{__make} -C external/afdko/c/tx/build/linux/gcc/release \
+	CC="%{__cc}" \
+	XFLAGS="%{rpmcflags} %{rpmcppflags}"
+cp -dR external/afdko/c/tx/exe/linux/release/tx external/afdko/c/tx/build_all
+
 %py3_build
 
 %if %{with tests}
