@@ -7,7 +7,7 @@ Summary:	Standalone CFF subroutinizer based on the AFDKO tx tool
 Summary(pl.UTF-8):	Samodzielny generator podprocedur CFF oparty na narzędziu tx z AFDKO
 Name:		python3-cffsubr
 Version:	0.2.9.post1
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/cffsubr/
