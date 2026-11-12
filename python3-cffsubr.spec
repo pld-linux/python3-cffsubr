@@ -6,15 +6,15 @@
 Summary:	Standalone CFF subroutinizer based on the AFDKO tx tool
 Summary(pl.UTF-8):	Samodzielny generator podprocedur CFF oparty na narzędziu tx z AFDKO
 Name:		python3-cffsubr
-Version:	0.3.0
+Version:	0.4.0
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/cffsubr/
 Source0:	https://files.pythonhosted.org/packages/source/c/cffsubr/cffsubr-%{version}.tar.gz
-# Source0-md5:	9ea6396f228e278ff7660dc4edde4c37
+# Source0-md5:	270feb668ea7df200242e91c62916468
 URL:		https://github.com/adobe-type-tools/cffsubr
-BuildRequires:	python3-devel >= 1:3.9
+BuildRequires:	python3-devel >= 1:3.10
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-setuptools_git_ls_files
 BuildRequires:	python3-setuptools_scm
@@ -25,7 +25,8 @@ BuildRequires:	python3-pytest
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	python3-modules >= 1:3.9
+Requires:	adobe-afdko
+Requires:	python3-modules >= 1:3.10
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -65,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %py3_install_pyproject
 
+# cffsubr runs the tx executable from its package directory
+ln -s %{_bindir}/tx $RPM_BUILD_ROOT%{py3_sitescriptdir}/cffsubr/tx
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -75,4 +79,5 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py3_sitescriptdir}/cffsubr
 %{py3_sitescriptdir}/cffsubr/*.py
 %{py3_sitescriptdir}/cffsubr/__pycache__
+%{py3_sitescriptdir}/cffsubr/tx
 %{py3_sitescriptdir}/cffsubr-%{version}.dist-info
